@@ -27,7 +27,7 @@ public class MessageService {
 					.build();
 		} catch (IOException | InterruptedException e) {
 			e.printStackTrace();
-			return Response.ok(gson.toJson("error"))
+			return Response.ok(gson.toJson(e.getMessage()))
 					.header("Access-Control-Allow-Origin", "*")
 					.header("Access-Control-Allow-Methods", "GET, POST, DELETE, PUT")
 					.build();
