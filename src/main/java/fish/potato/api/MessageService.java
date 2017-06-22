@@ -23,13 +23,13 @@ public class MessageService {
 			ArduinoLoader.reprogram(message, 1);
 			return Response.ok(gson.toJson("OK"))
 					.header("Access-Control-Allow-Origin", "*")
-					.header("Access-Control-Allow-Methods", "GET, POST, DELETE, PUT")
+					.header("Access-Control-Allow-Methods", "GET")
 					.build();
 		} catch (IOException | InterruptedException e) {
 			e.printStackTrace();
 			return Response.ok(gson.toJson(e.getMessage()))
 					.header("Access-Control-Allow-Origin", "*")
-					.header("Access-Control-Allow-Methods", "GET, POST, DELETE, PUT")
+					.header("Access-Control-Allow-Methods", "GET")
 					.build();
 		}
 	}
@@ -40,13 +40,13 @@ public class MessageService {
 			ArduinoLoader.reprogram("", 1);
 			return Response.ok(gson.toJson("OK"))
 					.header("Access-Control-Allow-Origin", "*")
-					.header("Access-Control-Allow-Methods", "GET, POST, DELETE, PUT")
+					.header("Access-Control-Allow-Methods", "DELETE")
 					.build();
 		} catch (IOException | InterruptedException e) {
 			e.printStackTrace();
-			return Response.ok(gson.toJson("error"))
+			return Response.ok(gson.toJson(e.getMessage()))
 					.header("Access-Control-Allow-Origin", "*")
-					.header("Access-Control-Allow-Methods", "GET, POST, DELETE, PUT")
+					.header("Access-Control-Allow-Methods", "DELETE")
 					.build();
 		}
 	}
