@@ -7,7 +7,7 @@ public class FormatString {
 		return arrayDec + formatString(message) + ";";
 	}
 	
-	private static String formatString(String message) {
+	static String formatString(String message) {
 		String stringArray = "{";
 		String[] messageArr = stripPunct(message).toUpperCase().split("(?!^)");
 		
