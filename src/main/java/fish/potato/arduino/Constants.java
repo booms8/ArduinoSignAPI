@@ -10,20 +10,4 @@ public class Constants {
 	public static String MAIN_FILE = "matrix_8";
 	public static String MESSAGE_FILE = "message_8";
 	public static String CHAR_FILE = "chars_8";
-	
-	public static void setWorkingDir(String dir) {
-		WORKING_DIR = dir;
-	}
-	
-	public static void setMainFile(String file) {
-		MAIN_FILE = file;
-	}
-	
-	public static void setMessageFile(String file) {
-		MESSAGE_FILE = file;
-	}
-	
-	public static void setCharFile(String file) {
-		CHAR_FILE = file;
-	}
 }

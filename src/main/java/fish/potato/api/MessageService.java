@@ -18,8 +18,8 @@ public class MessageService {
 	private Gson gson = new Gson();
 	
 	@GET
-	@Path("/current")
-	public Response getCurrent() {
+	@Path("/get")
+	public Response get() {
 		try {
 			String message = ClassReader.readClass();
 			return Response.ok(gson.toJson(message))
@@ -36,8 +36,8 @@ public class MessageService {
 	}
 	
 	@GET
-	@Path("/{message}")
-	public Response reload(@PathParam("message") String message) {
+	@Path("/set/{message}")
+	public Response set(@PathParam("message") String message) {
 		try {
 			ArduinoLoader.reprogram(message, 1);
 			return Response.ok(gson.toJson("OK"))
