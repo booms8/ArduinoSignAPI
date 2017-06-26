@@ -29,6 +29,13 @@ public class FormatString {
 		return stringArray + "space}";
 	}
 	
+	static String unformatString(String content) {
+		String rawMessage = content.substring(content.indexOf('{') + 1, content.indexOf('}'));
+		String strippedMessage = rawMessage.replace("plus", "+").replace("equal", "=").replace("space", " ");
+		String message = strippedMessage.replace("_", "").replace(",", "");
+		return message.trim();
+	}
+	
 	private static String stripPunct(String message) {
 		return message.replaceAll("\\p{P}", "");
 	}

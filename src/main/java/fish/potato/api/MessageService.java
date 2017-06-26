@@ -11,11 +11,30 @@ import javax.ws.rs.core.Response;
 import com.google.gson.Gson;
 
 import fish.potato.arduino.ArduinoLoader;
+import fish.potato.arduino.util.ClassReader;
 
 @Path("/message")
 public class MessageService {
 	private Gson gson = new Gson();
-
+	
+	@GET
+	@Path("/current")
+	public Response getCurrent() {
+		try {
+			String message = ClassReader.readClass();
+			return Response.ok(gson.toJson(message))
+					.header("Access-Control-Allow-Origin", "*")
+					.header("Access-Control-Allow-Methods", "GET")
+					.build();
+		} catch (IOException e) {
+			e.printStackTrace();
+			return Response.ok(gson.toJson(e.getMessage()))
+					.header("Access-Control-Allow-Origin", "*")
+					.header("Access-Control-Allow-Methods", "GET")
+					.build();
+		}
+	}
+	
 	@GET
 	@Path("/{message}")
 	public Response reload(@PathParam("message") String message) {

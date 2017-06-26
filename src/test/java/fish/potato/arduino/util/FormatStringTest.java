@@ -18,4 +18,11 @@ public class FormatStringTest {
 	public void testFormatMessage() {
 		assertEquals("Formatting integration test", "static byte pattern[5][8] = {_T,_E,_S,_T,space};", FormatString.formatMessage("test"));
 	}
+	
+	@Test
+	public void testUnformatMessage() {
+		assertEquals("Basic unformat", "TEST", FormatString.unformatString("static byte pattern[5][8] = {_T,_E,_S,_T,space};"));
+		assertEquals("Unformat with plus sign", "TEST+", FormatString.unformatString("static byte pattern[6][8] = {_T,_E,_S,_T,plus,space};"));
+		assertEquals("Unformat with equal sign", "TEST=", FormatString.unformatString("static byte pattern[6][8] = {_T,_E,_S,_T,equal,space};"));
+	}
 }
