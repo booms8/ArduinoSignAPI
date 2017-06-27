@@ -9,6 +9,7 @@ import fish.potato.arduino.Constants;
 public class ClassWriter {
 	public static void createClass(String formattedMessage, int mode) {
 		String content = "#include \"" + Constants.CHAR_FILE + ".h\"\n\n" +
+				"//[" + System.currentTimeMillis() / 1000L + "]\n\n" +
 				"static int mode = " + mode + ";\n" +
 				formattedMessage;
 		File messageClass = new File(Constants.WORKING_DIR + Constants.MESSAGE_FILE + ".c");
