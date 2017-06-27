@@ -5,6 +5,11 @@ import org.junit.Test;
 
 public class FormatStringTest {
 	
+	private final String testClass = "#include \"chars_8.h\"\n\n" +
+										"//[1498595611]\n\n" +
+										"static int mode = 1;\n" +
+										"static byte pattern[8][8] = {_T,_E,_S,_T,space};";
+	
 	@Test
 	public void testFormatString() {
 		assertEquals("Basic format", "{_T,_E,_S,_T,space}", FormatString.formatString("test"));
@@ -21,8 +26,13 @@ public class FormatStringTest {
 	
 	@Test
 	public void testUnformatMessage() {
-		assertEquals("Basic unformat", "TEST", FormatString.unformatString("static byte pattern[5][8] = {_T,_E,_S,_T,space};"));
-		assertEquals("Unformat with plus sign", "TEST+", FormatString.unformatString("static byte pattern[6][8] = {_T,_E,_S,_T,plus,space};"));
-		assertEquals("Unformat with equal sign", "TEST=", FormatString.unformatString("static byte pattern[6][8] = {_T,_E,_S,_T,equal,space};"));
+		assertEquals("Basic unformat", "TEST", FormatString.unformatMessage(testClass));
+		assertEquals("Unformat with plus sign", "TEST+", FormatString.unformatMessage("static byte pattern[6][8] = {_T,_E,_S,_T,plus,space};"));
+		assertEquals("Unformat with equal sign", "TEST=", FormatString.unformatMessage("static byte pattern[6][8] = {_T,_E,_S,_T,equal,space};"));
+	}
+	
+	@Test
+	public void testGetTime() {
+		assertEquals("Get time", 1498595611L, (long) FormatString.getTimeWritten(testClass));
 	}
 }

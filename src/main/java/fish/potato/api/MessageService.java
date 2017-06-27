@@ -12,6 +12,7 @@ import com.google.gson.Gson;
 
 import fish.potato.arduino.ArduinoLoader;
 import fish.potato.arduino.util.ClassReader;
+import fish.potato.arduino.util.FormatString;
 
 @Path("/message")
 public class MessageService {
@@ -21,8 +22,26 @@ public class MessageService {
 	@Path("/get")
 	public Response get() {
 		try {
-			String message = ClassReader.readClass();
+			String message = FormatString.unformatMessage(ClassReader.read());
 			return Response.ok(gson.toJson(message))
+					.header("Access-Control-Allow-Origin", "*")
+					.header("Access-Control-Allow-Methods", "GET")
+					.build();
+		} catch (IOException e) {
+			e.printStackTrace();
+			return Response.ok(gson.toJson(e.getMessage()))
+					.header("Access-Control-Allow-Origin", "*")
+					.header("Access-Control-Allow-Methods", "GET")
+					.build();
+		}
+	}
+	
+	@GET
+	@Path("/time")
+	public Response getTime() {
+		try {
+			Long time = FormatString.getTimeWritten(ClassReader.read());
+			return Response.ok(gson.toJson(time))
 					.header("Access-Control-Allow-Origin", "*")
 					.header("Access-Control-Allow-Methods", "GET")
 					.build();

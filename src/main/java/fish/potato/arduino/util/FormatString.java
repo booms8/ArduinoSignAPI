@@ -29,11 +29,16 @@ public class FormatString {
 		return stringArray + "space}";
 	}
 	
-	static String unformatString(String content) {
+	public static String unformatMessage(String content) {
 		String rawMessage = content.substring(content.indexOf('{') + 1, content.indexOf('}'));
 		String strippedMessage = rawMessage.replace("plus", "+").replace("equal", "=").replace("space", " ");
 		String message = strippedMessage.replace("_", "").replace(",", "");
 		return message.trim();
+	}
+	
+	public static Long getTimeWritten(String content) {
+		String time = content.substring(content.indexOf('[') + 1, content.indexOf(']'));
+		return Long.parseLong(time);
 	}
 	
 	private static String stripPunct(String message) {
