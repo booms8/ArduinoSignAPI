@@ -53,8 +53,8 @@ public class MessageService {
 	@Path("/set/{message}")
 	public Response set(@PathParam("message") String message) {
 		try {
-			controller.update(message);
-			return Response.ok(gson.toJson("OK"))
+			String result = controller.update(message);
+			return Response.ok(gson.toJson(result))
 					.header("Access-Control-Allow-Origin", "*")
 					.header("Access-Control-Allow-Methods", "GET")
 					.build();
@@ -70,8 +70,8 @@ public class MessageService {
 	@DELETE
 	public Response erase() {
 		try {
-			controller.update("");
-			return Response.ok(gson.toJson("OK"))
+			String result = controller.update("");
+			return Response.ok(gson.toJson(result))
 					.header("Access-Control-Allow-Origin", "*")
 					.header("Access-Control-Allow-Methods", "DELETE")
 					.build();
