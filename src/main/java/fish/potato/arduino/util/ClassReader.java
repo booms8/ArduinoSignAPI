@@ -5,6 +5,7 @@ import java.io.FileReader;
 import java.io.IOException;
 
 import fish.potato.arduino.Constants;
+import fish.potato.arduino.MessageClass;
 
 public class ClassReader {
 	public MessageClass read() throws IOException {

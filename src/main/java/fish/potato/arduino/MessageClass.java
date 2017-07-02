@@ -1,6 +1,6 @@
-package fish.potato.arduino.util;
+package fish.potato.arduino;
 
-import fish.potato.arduino.Constants;
+import fish.potato.arduino.util.FormatString;
 
 public class MessageClass {
 	public String message;
@@ -8,22 +8,22 @@ public class MessageClass {
 	public int mode;
 	
 	public MessageClass(String message, Long lastWritten, int mode) {
-		this.message = message;
+		this.message = FormatString.formatMessage(message);
 		this.lastWritten = lastWritten;
 		this.mode = mode;
 	}
 	
 	public MessageClass(String message, int mode) {
-		this.message = message;
+		this.message = FormatString.formatMessage(message);
 		this.lastWritten = System.currentTimeMillis() / 1000L;
 		this.mode = mode;
 	}
 	
 	public String getMessage() {
-		return message;
+		return FormatString.unformatMessage(message);
 	}
 	public void setMessage(String message) {
-		this.message = message;
+		this.message = FormatString.formatMessage(message);
 	}
 	public Long getLastWritten() {
 		return lastWritten;
@@ -38,10 +38,11 @@ public class MessageClass {
 		this.mode = mode;
 	}
 	
-	public String expand() {
+	@Override
+	public String toString() {
 		return "#include \"" + Constants.CHAR_FILE + ".h\"\n\n" +
-				"//[" + this.getLastWritten() + "]\n\n" +
-				"static int mode = " + this.getMode() + ";\n" +
-				this.getMessage();
+				"//[" + this.lastWritten + "]\n\n" +
+				"static int mode = " + this.mode + ";\n" +
+				this.message;
 	}
 }

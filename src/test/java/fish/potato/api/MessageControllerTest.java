@@ -9,28 +9,28 @@ import static org.mockito.Mockito.*;
 
 import java.io.IOException;
 
+import fish.potato.arduino.MessageClass;
 import fish.potato.arduino.util.ClassReader;
-import fish.potato.arduino.util.MessageClass;
 
 public class MessageControllerTest {
 	private ClassReader mockReader = mock(ClassReader.class);
 	private MessageController testController;
-	private MessageClass pojoOld;
-	private MessageClass pojoNew;
+	private MessageClass messageOld;
+	private MessageClass messageNew;
 	
 	@Before
 	public void setup() {
 		testController = new MessageController(mockReader);
-		pojoOld = new MessageClass("TEST", 1498595611L, 1);
-		pojoNew = new MessageClass("TEST", ((System.currentTimeMillis() / 1000L) - 30), 1);
+		messageOld = new MessageClass("TEST", 1498595611L, 1);
+		messageNew = new MessageClass("TEST", ((System.currentTimeMillis() / 1000L) - 30), 1);
 	}
 	
 	@Test
 	public void testCanWrite() throws IOException {
-		when(mockReader.read()).thenReturn(pojoOld);
+		when(mockReader.read()).thenReturn(messageOld);
 		assertTrue("Write after a long time", testController.canWrite("testmessage"));
 		
-		when(mockReader.read()).thenReturn(pojoNew);
+		when(mockReader.read()).thenReturn(messageNew);
 		assertFalse("Write after 30s", testController.canWrite("testmessage"));
 		assertTrue("Write same message after 30s", testController.canWrite("test"));
 	}

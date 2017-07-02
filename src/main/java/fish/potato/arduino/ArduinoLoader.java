@@ -1,7 +1,5 @@
 package fish.potato.arduino;
 
-import fish.potato.arduino.util.MessageClass;
-
 import java.io.File;
 import java.io.IOException;
 import fish.potato.arduino.util.ClassWriter;
