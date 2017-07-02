@@ -8,22 +8,22 @@ public class MessageClass {
 	public int mode;
 	
 	public MessageClass(String message, Long lastWritten, int mode) {
-		this.message = FormatString.formatMessage(message);
+		this.message = message;
 		this.lastWritten = lastWritten;
 		this.mode = mode;
 	}
 	
 	public MessageClass(String message, int mode) {
-		this.message = FormatString.formatMessage(message);
+		this.message = message;
 		this.lastWritten = System.currentTimeMillis() / 1000L;
 		this.mode = mode;
 	}
 	
 	public String getMessage() {
-		return FormatString.unformatMessage(message);
+		return message;
 	}
 	public void setMessage(String message) {
-		this.message = FormatString.formatMessage(message);
+		this.message = message;
 	}
 	public Long getLastWritten() {
 		return lastWritten;
@@ -43,6 +43,6 @@ public class MessageClass {
 		return "#include \"" + Constants.CHAR_FILE + ".h\"\n\n" +
 				"//[" + this.lastWritten + "]\n\n" +
 				"static int mode = " + this.mode + ";\n" +
-				this.message;
+				FormatString.formatMessage(message);
 	}
 }

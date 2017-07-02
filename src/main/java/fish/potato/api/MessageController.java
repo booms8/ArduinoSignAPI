@@ -46,10 +46,11 @@ public class MessageController {
 	}
 	
 	boolean canWrite(String newMessage) throws IOException {
-		if (FormatString.cleanMessage(newMessage).equals(reader.read().getMessage())) {
+		MessageClass current = reader.read();
+		if (FormatString.cleanMessage(newMessage).equals(current.getMessage())) {
 			return true;
 		}
-		Long timeWritten = reader.read().getLastWritten();
+		Long timeWritten = current.getLastWritten();
 		Long timeNow = System.currentTimeMillis() / 1000L;
 		return (timeNow - timeWritten) > Constants.MESSAGE_TIMEOUT;
 	}
