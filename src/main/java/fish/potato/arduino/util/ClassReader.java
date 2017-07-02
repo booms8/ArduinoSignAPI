@@ -7,7 +7,7 @@ import java.io.IOException;
 import fish.potato.arduino.Constants;
 
 public class ClassReader {
-	public static String read() throws IOException {
+	public String read() throws IOException {
 		String content = "";
 		File messageClass = new File(Constants.WORKING_DIR + Constants.MESSAGE_FILE + ".c");
 		FileReader reader = null;

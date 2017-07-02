@@ -10,20 +10,16 @@ import javax.ws.rs.core.Response;
 
 import com.google.gson.Gson;
 
-import fish.potato.arduino.ArduinoLoader;
-import fish.potato.arduino.util.ClassReader;
-import fish.potato.arduino.util.FormatString;
-
 @Path("/message")
 public class MessageService {
 	private Gson gson = new Gson();
+	private MessageController controller = new MessageController();
 	
 	@GET
 	@Path("/get")
 	public Response get() {
 		try {
-			String message = FormatString.unformatMessage(ClassReader.read());
-			return Response.ok(gson.toJson(message))
+			return Response.ok(gson.toJson(controller.getMessage()))
 					.header("Access-Control-Allow-Origin", "*")
 					.header("Access-Control-Allow-Methods", "GET")
 					.build();
@@ -40,8 +36,7 @@ public class MessageService {
 	@Path("/time")
 	public Response getTime() {
 		try {
-			Long time = FormatString.getTimeWritten(ClassReader.read());
-			return Response.ok(gson.toJson(time))
+			return Response.ok(gson.toJson(controller.getLastWriten()))
 					.header("Access-Control-Allow-Origin", "*")
 					.header("Access-Control-Allow-Methods", "GET")
 					.build();
@@ -58,7 +53,7 @@ public class MessageService {
 	@Path("/set/{message}")
 	public Response set(@PathParam("message") String message) {
 		try {
-			ArduinoLoader.reprogram(message, 1);
+			controller.update(message);
 			return Response.ok(gson.toJson("OK"))
 					.header("Access-Control-Allow-Origin", "*")
 					.header("Access-Control-Allow-Methods", "GET")
@@ -75,7 +70,7 @@ public class MessageService {
 	@DELETE
 	public Response erase() {
 		try {
-			ArduinoLoader.reprogram("", 1);
+			controller.update("");
 			return Response.ok(gson.toJson("OK"))
 					.header("Access-Control-Allow-Origin", "*")
 					.header("Access-Control-Allow-Methods", "DELETE")

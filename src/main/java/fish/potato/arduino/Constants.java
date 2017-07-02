@@ -10,4 +10,6 @@ public class Constants {
 	public static String MAIN_FILE = "matrix_8";
 	public static String MESSAGE_FILE = "message_8";
 	public static String CHAR_FILE = "chars_8";
+	
+	public static int MESSAGE_TIMEOUT = 60;
 }
