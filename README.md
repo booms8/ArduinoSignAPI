@@ -9,5 +9,8 @@ Returns the message currently being displayed
 `GET http://sign.potato.fish/ArduinoSign/api/message/set/[message]`  
 Sets the current message to [message]
 
+`GET http://sign.potato.fish/ArduinoSign/api/message/time`
+Returns the Unix timestamp of the last time the message was updated
+
 `DELETE http://sign.potato.fish/ArduinoSign/api/message`  
 Erases the message from the sign
