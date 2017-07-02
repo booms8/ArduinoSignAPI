@@ -10,16 +10,16 @@ public class ArduinoLoader {
 	private static Runtime shell = Runtime.getRuntime();
 	private static ClassWriter writer = new ClassWriter();
 	
-	public static void reprogram(MessageClass pojo) throws IOException, InterruptedException {
+	public static void reprogram(MessageClass message) throws IOException, InterruptedException {
 		System.out.println("Running in " + System.getProperty("user.dir"));
-		loadNewMessage(pojo);
+		loadNewMessage(message);
 		build();
 		load();
 	}
 	
-	public static void loadNewMessage(MessageClass pojo) throws IOException {
-		System.out.println("Loading message: " + pojo.getMessage());
-		writer.createClass(pojo);
+	public static void loadNewMessage(MessageClass message) throws IOException {
+		System.out.println("Loading message: " + message.getMessage());
+		writer.createClass(message);
 	}
 	
 	public static void build() throws IOException, InterruptedException {
