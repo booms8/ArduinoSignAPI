@@ -2,7 +2,8 @@ package fish.potato.arduino.util;
 
 public class FormatString {
 	public static String formatMessage(String message) {
-		String arrayDec = "static byte pattern[" + (message.length() + 1) + "][8] = ";
+		String strippedMessage = stripPunct(message);
+		String arrayDec = "static byte pattern[" + (strippedMessage.length() + 1) + "][8] = ";
 		
 		return arrayDec + formatString(message) + ";";
 	}

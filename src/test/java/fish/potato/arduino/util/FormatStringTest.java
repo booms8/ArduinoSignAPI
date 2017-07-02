@@ -8,7 +8,7 @@ public class FormatStringTest {
 	private final String testClass = "#include \"chars_8.h\"\n\n" +
 										"//[1498595611]\n\n" +
 										"static int mode = 1;\n" +
-										"static byte pattern[8][8] = {_T,_E,_S,_T,space};";
+										"static byte pattern[5][8] = {_T,_E,_S,_T,space};";
 	
 	@Test
 	public void testFormatString() {
@@ -21,7 +21,8 @@ public class FormatStringTest {
 	
 	@Test
 	public void testFormatMessage() {
-		assertEquals("Formatting integration test", "static byte pattern[5][8] = {_T,_E,_S,_T,space};", FormatString.formatMessage("test"));
+		assertEquals("Standard formatting integration test", "static byte pattern[5][8] = {_T,_E,_S,_T,space};", FormatString.formatMessage("test"));
+		assertEquals("Punctuation formatting integration test", "static byte pattern[5][8] = {_T,_E,_S,_T,space};", FormatString.formatMessage("test!"));
 	}
 	
 	@Test
