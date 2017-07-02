@@ -36,9 +36,19 @@ public class FormatString {
 		return message.trim();
 	}
 	
+	public static String cleanMessage(String message) {
+		return unformatMessage(formatString(message));
+	}
+	
 	public static Long getTimeWritten(String content) {
 		String time = content.substring(content.indexOf('[') + 1, content.indexOf(']'));
 		return Long.parseLong(time);
+	}
+	
+	public static int getMode(String content) {
+		char mode  = content.charAt(content.indexOf("static int mode = ") + 18);
+		System.out.println(mode);
+		return Character.getNumericValue(mode);
 	}
 	
 	private static String stripPunct(String message) {

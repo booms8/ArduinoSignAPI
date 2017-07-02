@@ -6,6 +6,7 @@ import fish.potato.arduino.ArduinoLoader;
 import fish.potato.arduino.Constants;
 import fish.potato.arduino.util.ClassReader;
 import fish.potato.arduino.util.FormatString;
+import fish.potato.arduino.util.MessageClass;
 
 public class MessageController {
 	private ClassReader reader;
@@ -14,16 +15,20 @@ public class MessageController {
 		this.reader = new ClassReader();
 	}
 	
-	public MessageController(ClassReader reader) {
+	MessageController(ClassReader reader) {
 		this.reader = reader;
 	}
 	
 	public String getMessage() throws IOException {
-		return FormatString.unformatMessage(reader.read());
+		return reader.read().getMessage();
 	}
 	
 	public Long getLastWriten() throws IOException {
-		return FormatString.getTimeWritten(reader.read());
+		return reader.read().getLastWritten();
+	}
+	
+	public int getMode() throws IOException {
+		return reader.read().getMode();
 	}
 	
 	public String update(String newMessage) throws IOException, InterruptedException {
@@ -37,19 +42,19 @@ public class MessageController {
 	}
 	
 	boolean canWrite(String newMessage) throws IOException {
-		if (newMessage.toUpperCase().equals(FormatString.unformatMessage(reader.read()))) {
+		if (FormatString.cleanMessage(newMessage).equals(reader.read().getMessage())) {
 			return true;
 		}
-		Long timeWritten = FormatString.getTimeWritten(reader.read());
+		Long timeWritten = reader.read().getLastWritten();
 		Long timeNow = System.currentTimeMillis() / 1000L;
 		return (timeNow - timeWritten) > Constants.MESSAGE_TIMEOUT;
 	}
 	
 	private void changeMessage(String newMessage) throws IOException, InterruptedException {
-		ArduinoLoader.reprogram(newMessage, 1);
+		ArduinoLoader.reprogram(new MessageClass(FormatString.formatMessage(newMessage), reader.read().getMode()));
 	}
 	
 	public void changeMode(int mode) throws IOException, InterruptedException {
-		ArduinoLoader.reprogram(FormatString.unformatMessage(reader.read()), mode);
+		ArduinoLoader.reprogram(new MessageClass(reader.read().getMessage(), mode));
 	}
 }

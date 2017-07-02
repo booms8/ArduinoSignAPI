@@ -32,7 +32,17 @@ public class FormatStringTest {
 	}
 	
 	@Test
+	public void testCleanString() {
+		assertEquals("Clean punction", "TEST", FormatString.cleanMessage("test!"));
+	}
+	
+	@Test
 	public void testGetTime() {
 		assertEquals("Get time", 1498595611L, (long) FormatString.getTimeWritten(testClass));
+	}
+	
+	@Test
+	public void testGetMode() {
+		assertEquals("Get mode", 1, FormatString.getMode(testClass));
 	}
 }

@@ -1,6 +1,6 @@
 package fish.potato.arduino;
 
-import fish.potato.arduino.util.FormatString;
+import fish.potato.arduino.util.MessageClass;
 
 import java.io.File;
 import java.io.IOException;
@@ -10,16 +10,16 @@ public class ArduinoLoader {
 	private static Runtime shell = Runtime.getRuntime();
 	private static ClassWriter writer = new ClassWriter();
 	
-	public static void reprogram(String message, int mode) throws IOException, InterruptedException {
+	public static void reprogram(MessageClass pojo) throws IOException, InterruptedException {
 		System.out.println("Running in " + System.getProperty("user.dir"));
-		loadNewMessage(message, 1);
+		loadNewMessage(pojo);
 		build();
 		load();
 	}
 	
-	public static void loadNewMessage(String message, int mode) throws IOException {
-		System.out.println("Loading message: " + message);
-		writer.createClass(FormatString.formatMessage(message), mode);
+	public static void loadNewMessage(MessageClass pojo) throws IOException {
+		System.out.println("Loading message: " + pojo.getMessage());
+		writer.createClass(pojo);
 	}
 	
 	public static void build() throws IOException, InterruptedException {
