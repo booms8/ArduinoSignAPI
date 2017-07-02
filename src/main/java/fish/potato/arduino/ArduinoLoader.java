@@ -8,6 +8,7 @@ import fish.potato.arduino.util.ClassWriter;
 
 public class ArduinoLoader {
 	private static Runtime shell = Runtime.getRuntime();
+	private static ClassWriter writer = new ClassWriter();
 	
 	public static void reprogram(String message, int mode) throws IOException, InterruptedException {
 		System.out.println("Running in " + System.getProperty("user.dir"));
@@ -16,9 +17,9 @@ public class ArduinoLoader {
 		load();
 	}
 	
-	public static void loadNewMessage(String message, int mode) {
+	public static void loadNewMessage(String message, int mode) throws IOException {
 		System.out.println("Loading message: " + message);
-		ClassWriter.createClass(FormatString.formatMessage(message), mode);
+		writer.createClass(FormatString.formatMessage(message), mode);
 	}
 	
 	public static void build() throws IOException, InterruptedException {
