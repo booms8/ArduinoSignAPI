@@ -3,10 +3,12 @@ package fish.potato.arduino;
 import java.io.File;
 import java.io.IOException;
 import fish.potato.arduino.util.ClassWriter;
+import fish.potato.arduino.util.Logger;
 
 public class ArduinoLoader {
 	private static Runtime shell = Runtime.getRuntime();
 	private static ClassWriter writer = new ClassWriter();
+	private static Logger logger = new Logger();
 	
 	public static void reprogram(MessageClass message) throws IOException, InterruptedException {
 		System.out.println("Running in " + System.getProperty("user.dir"));
@@ -18,6 +20,7 @@ public class ArduinoLoader {
 	public static void loadNewMessage(MessageClass message) throws IOException {
 		System.out.println("Loading message: " + message.getMessage());
 		writer.createClass(message);
+		logger.addLine(message.getMessage());
 	}
 	
 	public static void build() throws IOException, InterruptedException {
